@@ -1,9 +1,51 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
+
 <head>
-  <title>Fortell Flash Project</title>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
+    <script type="text/javascript" src="http://localhost:8888/foretell_traffic/jwplayer.js"></script>
+    <script>
+
+function play() {
+    try {
+        $('#stage').empty();
+        $('#stage').append("<div id='player'></player>");
+
+        var url = $('#url').val();
+        var stream = $('#stream').val();
+        var player = jwplayer('player');
+
+        player.setup({
+            'flashplayer': 'http://localhost:8888/foretell_traffic/player.swf',
+            'id': 'player',
+            'width': 640,
+            'height': 360,
+            'autoplay': true,
+            'streamer': url,
+            'file': stream
+        });
+    } catch (err) {
+        console.log('oh oh');
+        console.log(err);
+    }
+    return false;
+}
+
+    </script>
 </head>
+
 <body>
-  <embed width="636" height="470" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" align="middle" play="true" loop="true" scale="showall" wmode="window" devicefont="false" bgcolor="#000000" name="live" menu="true" allowfullscreen="true" allowscriptaccess="sameDomain" salign="" src="rtmp://23.227.163.154:1935/demo/test" type="application/x-shockwave-flash">
+
+<form onsubmit="return play();">
+    <label for="url">url</label><input type="text" name="url" id="url" value="rtmp://23.227.163.154:1935/demo/"/>
+    <label for="stream">stream</label><input type="text" name="stream" id="stream" value="test"/>
+    <input type="submit" value="play"/>
+</form>
+
+<div id='stage'></div>
+<div id='state'>
+
+</div>
 </body>
+
 </html>
